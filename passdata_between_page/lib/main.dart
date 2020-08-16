@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:passdata_between_page/dashboard.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 void main() {
   runApp(MaterialApp(
@@ -15,56 +18,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List contactList = [
-    {
-      "name": "Devondra",
-      "phone": "+7 (675) 771-2390",
-    },
-    {
-      "name": "Myrtle",
-      "phone": "+86 (970) 387-0451",
-    },
-    {
-      "name": "Conn",
-      "phone": "+52 (352) 319-1099",
-    },
-    {
-      "name": "Abby",
-      "phone": "+86 (200) 148-5882",
-    },
-    {
-      "name": "Ag",
-      "phone": "+86 (339) 653-2263",
-    },
-    {
-      "name": "Julee",
-      "phone": "+62 (577) 903-9752",
-    },
-    {
-      "name": "Dolores",
-      "phone": "+33 (635) 286-0788",
-    },
-    {
-      "name": "Malvin",
-      "phone": "+420 (782) 310-2268",
-    },
-    {
-      "name": "Torie",
-      "phone": "+237 (688) 209-3242",
-    },
-    {
-      "name": "Osmund",
-      "phone": "+58 (880) 888-0335",
-    },
-    {
-      "name": "Cristi",
-      "phone": "+86 (747) 749-6607",
-    },
-    {
-      "name": "Carine",
-      "phone": "+86 (676) 646-8386",
-    },
-  ];
+  List posts;
+
+  Future<bool> _getPost() async {
+    String postURL = "https://jsonplaceholder.typicode.com/posts";
+    try {
+      var response = await http.get(postURL);
+      setState(() {
+        posts = json.decode(response.body.toString());
+      });
+    } catch (e) {
+      print(e);
+    }
+
+    return true;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getPost();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,22 +48,20 @@ class _MyAppState extends State<MyApp> {
         title: Text("Parse Data between page"),
       ),
       body: ListView.builder(
-        itemCount: contactList.length,
+        itemCount: posts.length == null ? 0 : posts.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
             children: <Widget>[
               ListTile(
-                leading: CircleAvatar(
-                  child: Text(contactList[index]['name'][0]),
-                ),
-                title: Text(contactList[index]['name']),
-                subtitle: Text(contactList[index]['phone']),
+                title: Text('Title: ${posts[index]['title']}'),
+                subtitle: Text('Description: ${posts[index]['body']}'),
                 onTap: () {
-                  print(contactList[index]);
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Dashboard(contactList[index])));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Dashboard(posts[index]),
+                    ),
+                  );
                 },
               )
             ],

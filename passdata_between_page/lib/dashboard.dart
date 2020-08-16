@@ -18,8 +18,8 @@ class _DashboardState extends State<Dashboard> {
       ),
       body: Column(
         children: <Widget>[
-          Text(data['name']),
-          Text(data['phone']),
+          Text(data['title']),
+          Text(data['body']),
         ],
       ),
     );

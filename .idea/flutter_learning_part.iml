@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/flutter_loacl_json/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_loacl_json/build" />
+      <excludeFolder url="file://$MODULE_DIR$/passdata_between_page/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/passdata_between_page/build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
