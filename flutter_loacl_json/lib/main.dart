@@ -51,6 +51,9 @@ class _MyAppState extends State<MyApp> {
                 ),
                 title: Text(data[index]['name']),
                 subtitle: Text(data[index]['email']),
+                onTap: () {
+                  print(data[index]);
+                },
               )
             ],
           );
